@@ -19,18 +19,24 @@ function Calculator({ workouts, allowSound }) {
     [number, sets, speed, durationBreak]
   );
 
+  useEffect(
+    function () {
+      const playSound = function () {
+        if (!allowSound) return;
+        const sound = new Audio(clickSound);
+        sound.play();
+      };
+      playSound();
+    },
+    [duration, allowSound]
+  );
+
   function handleInc() {
     setDuration((duration) => Math.ceil(duration + 1));
   }
   function handleDec() {
     setDuration((duration) => (duration > 1 ? Math.ceil(duration - 1) : 0));
   }
-
-  const playSound = function () {
-    if (!allowSound) return;
-    const sound = new Audio(clickSound);
-    sound.play();
-  };
 
   return (
     <>
